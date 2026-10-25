@@ -75,11 +75,6 @@ const sessionOptions = {
     },
 };
 
-app.get("/", async (req, res) => {
-    const AllListings = await Listing.find({});
-    res.render("listings/index.ejs", { AllListings });
-});
-
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -98,6 +93,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get("/", async (req, res) => {
+    const AllListings = await Listing.find({});
+    res.render("listings/index.ejs", { AllListings });
+});
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
